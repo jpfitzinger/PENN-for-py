@@ -50,7 +50,8 @@ class PENN:
 
         # Parameters layers for mu and sigma
         self.mu = Dense(self.k, kernel_regularizer=l2(self.l2_penalty), name='mu')(self.encoder_layer_2)
-        self.sigma_squared = Dense(self.k, activation='exponential', kernel_regularizer=l2(self.l2_penalty))(self.encoder_layer_2)
+        self.sigma_squared = Dense(self.k, activation='exponential',
+                                   kernel_regularizer=l2(self.l2_penalty))(self.encoder_layer_2)
         self.sigma = Lambda(lambda i: b.sqrt(i), name='sigma')(self.sigma_squared)
 
         # Variational layer generates a sample from the parameter posterior
