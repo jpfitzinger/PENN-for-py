@@ -111,7 +111,8 @@ def build(k, n, mc_draws=100, size=10, l2_penalty=0.001):
 
     # Parameters layers for mu and sigma
     mu = Dense(k, kernel_regularizer=l2(l2_penalty), name='mu')(encoder_layer_2)
-    sigma_squared = Dense(k, activation='exponential', kernel_regularizer=l2(l2_penalty))(encoder_layer_2)
+    sigma_squared = Dense(k, activation='exponential', 
+                          kernel_regularizer=l2(l2_penalty))(encoder_layer_2)
     sigma = Lambda(lambda i: b.sqrt(i), name='sigma')(sigma_squared)
 
     # Variational layer generates a sample from the parameter posterior
@@ -179,8 +180,10 @@ y = np.repeat(y[:, np.newaxis, np.newaxis], 100, axis=1)
 model.fit(data, y, batch_size=n, epochs=1000, verbose=0)
 ```
 
-    ## <keras.callbacks.History object at 0x7fa155b5de80>
+    ## <keras.callbacks.History object at 0x7f5256922e80>
 
 ``` python
 mu = mu_model.predict(data, batch_size=n)
 ```
+
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
